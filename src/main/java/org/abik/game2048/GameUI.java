@@ -21,7 +21,7 @@ public class GameUI {
         statusLabel.setFont(Font.font("Arial", FontWeight.BOLD, 48));
         statusLabel.setTextFill(Color.RED);
         statusLabel.setTextAlignment(TextAlignment.CENTER);
-        statusLabel.setVisible(false);  // По умолчанию скрыт
+        statusLabel.setVisible(false);  // Hidden by default
         root.getChildren().add(statusLabel);
     }
 

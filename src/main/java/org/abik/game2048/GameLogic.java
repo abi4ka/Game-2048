@@ -12,12 +12,12 @@ public class GameLogic {
         addRandomTile();
     }
 
-    // Функция для передачи игрового поля
+    // Return the current game board
     public int[][] getBoard() {
         return nums;
     }
 
-    // Создание плитны в свободном месте
+    // Create a new tile in a random empty cell
     private void addRandomTile() {
         boolean found = false;
         while (!found) {
@@ -30,7 +30,7 @@ public class GameLogic {
         }
     }
 
-    // Проверка на победу
+    // Check win condition
     public boolean hasWon() {
         for (int[] row : nums) {
             for (int tile : row) {
@@ -42,7 +42,7 @@ public class GameLogic {
         return false;
     }
 
-    // Проверка на проигрыш
+    // Check loss condition
     public boolean hasLost() {
         int fullTiles = 0;
         for (int[] row : nums) {
@@ -53,22 +53,22 @@ public class GameLogic {
             }
         }
 
-        // Если все клетки заполнены
+        // If all cells are filled
         if (fullTiles == 16) {
-            // Проверяем возможность слияния плиток
+            // Check if any merge is possible
             for (int i = 0; i < nums.length; i++) {
                 for (int j = 0; j < nums[i].length; j++) {
-                    // Проверяем соседние плитки
-                    if (j < nums[i].length - 1 && nums[i][j] == nums[i][j + 1]) { // Проверка справа
-                        return false; // Можно объединить
+                    // Check adjacent tiles
+                    if (j < nums[i].length - 1 && nums[i][j] == nums[i][j + 1]) { // Check right
+                        return false; // Merge is possible
                     }
-                    if (i < nums.length - 1 && nums[i][j] == nums[i + 1][j]) { // Проверка снизу
-                        return false; // Можно объединить
+                    if (i < nums.length - 1 && nums[i][j] == nums[i + 1][j]) { // Check down
+                        return false; // Merge is possible
                     }
                 }
             }
         }
-        // Если все клетки заполнены и нет возможности объединения
+        // All cells are filled and no merges are possible
         return fullTiles == 16;
     }
 
@@ -91,49 +91,49 @@ public class GameLogic {
         return true;
     }
 
-    // Методы перемещения плиток
+    // Tile movement methods
     public void moveLeft() {
-        int[][] previousState = copyBoard(nums); // Сохраняем предыдущее состояние
+        int[][] previousState = copyBoard(nums); // Save previous state
         GroupA(nums);
         MoveA(nums);
-        if (!arraysEqual(previousState, nums)) { // Если состояние изменилось
+        if (!arraysEqual(previousState, nums)) { // If state changed
             addRandomTile();
         }
     }
 
     public void moveRight() {
-        int[][] previousState = copyBoard(nums); // Сохраняем предыдущее состояние
+        int[][] previousState = copyBoard(nums); // Save previous state
         GroupD(nums);
         MoveD(nums);
-        if (!arraysEqual(previousState, nums)) { // Если состояние изменилось
+        if (!arraysEqual(previousState, nums)) { // If state changed
             addRandomTile();
         }
     }
 
     public void moveUp() {
-        int[][] previousState = copyBoard(nums); // Сохраняем предыдущее состояние
+        int[][] previousState = copyBoard(nums); // Save previous state
         GroupW(nums);
         MoveW(nums);
-        if (!arraysEqual(previousState, nums)) { // Если состояние изменилось
+        if (!arraysEqual(previousState, nums)) { // If state changed
             addRandomTile();
         }
     }
 
     public void moveDown() {
-        int[][] previousState = copyBoard(nums); // Сохраняем предыдущее состояние
+        int[][] previousState = copyBoard(nums); // Save previous state
         GroupS(nums);
         MoveS(nums);
-        if (!arraysEqual(previousState, nums)) { // Если состояние изменилось
+        if (!arraysEqual(previousState, nums)) { // If state changed
             addRandomTile();
         }
     }
 
-    // Логические операции
+    // Logic operations
     static void GroupA(int[][] num) {
         for (int i = 0; i < num.length; i++) {
             for (int j = 0; j < num[i].length; j++) {
                 if (num[i][j] != 0) {
-                    // Groping
+                    // Grouping
                     if (j < 3 && num[i][j] == num[i][j + 1]) {
                         num[i][j] += num[i][j + 1];
                         num[i][j + 1] = 0;
@@ -153,7 +153,7 @@ public class GameLogic {
         for (int i = 0; i < num.length; i++) {
             for (int j = 0; j < num[i].length; j++) {
                 if (num[i][j] !=  0) {
-                    // Moving
+                    // Movement
                     if (j > 0) {
                         if (num[i][0] == 0) {
                             num[i][0] = num[i][j];
@@ -175,7 +175,7 @@ public class GameLogic {
         for (int i = 0; i < num.length; i++) {
             for (int j = num[i].length - 1; j >= 0; j--) {
                 if (num[i][j] != 0) {
-                    // Groping
+                    // Grouping
                     if (j > 0 && num[i][j] == num[i][j - 1]) {
                         num[i][j] += num[i][j - 1];
                         num[i][j - 1] = 0;

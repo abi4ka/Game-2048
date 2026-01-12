@@ -27,7 +27,7 @@ public class Game2048 extends Application {
 
         drawBoard();
 
-        // Создаем StackPane, добавляем игровую сетку и поверх нее UI с сообщением
+        // Create StackPane, add the game grid and overlay UI message on top
         StackPane root = new StackPane(grid, gameUI.getRoot());
         Scene scene = new Scene(root);
         scene.setOnKeyPressed(this::handleInput);
@@ -37,7 +37,7 @@ public class Game2048 extends Application {
         primaryStage.show();
     }
 
-    // Обработка нажатий клавиш
+    // Handle keyboard input
     private void handleInput(KeyEvent event) {
         switch (event.getCode()) {
             case W -> gameLogic.moveUp();
@@ -47,7 +47,7 @@ public class Game2048 extends Application {
         }
         updateUI();
 
-        // Проверка на победу или проигрыш
+        // Check for win or loss condition
         if (gameLogic.hasWon()) {
             gameUI.showMessage("You Won!", Color.rgb(65, 220, 13));
             System.out.println("You won!");
@@ -58,18 +58,18 @@ public class Game2048 extends Application {
         }
     }
 
-    // Метод для отображения массива на экране
+    // Render the board on the screen
     private void drawBoard() {
-        grid.getChildren().clear();  // Очищаем старые элементы перед перерисовкой
+        grid.getChildren().clear();  // Clear old elements before redrawing
 
-        int[][] board = gameLogic.getBoard();  // Получаем текущее состояние из GameLogic
+        int[][] board = gameLogic.getBoard();  // Get current state from GameLogic
 
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 Rectangle tile = new Rectangle(TILE_SIZE, TILE_SIZE);
                 tile.setStroke(Color.BLACK);
 
-                // Устанавливаем цвет в зависимости от значения
+                // Set tile color based on value
                 int value = board[row][col];
                 switch (value) {
                     case 0 -> tile.setFill(Color.rgb(255, 255, 255));
@@ -86,7 +86,7 @@ public class Game2048 extends Application {
                     case 2048 -> tile.setFill(Color.rgb(237 ,194 , 45));
                 }
 
-                // Создаем StackPane для плитки
+                // Create StackPane for a tile
                 StackPane stackPane = new StackPane();
                 stackPane.getChildren().add(tile);
                 Text number = new Text();
@@ -99,13 +99,13 @@ public class Game2048 extends Application {
 
                 stackPane.getChildren().add(number);
 
-                // Добавляем StackPane в сетку
+                // Add StackPane to the grid
                 grid.add(stackPane, col, row);
             }
         }
     }
 
-    // Метод для обновления интерфейса
+    // Update the UI
     private void updateUI() {
         drawBoard();
     }
