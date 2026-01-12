@@ -1,3 +1,5 @@
+package org.abik.game2048;
+
 import java.util.Random;
 
 public class GameLogic {
